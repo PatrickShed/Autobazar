@@ -5,10 +5,12 @@
  */
 package sk.upjs.ics.autobazar.GUI;
 
+import java.io.File;
 import java.time.Instant;
 import java.util.Date;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import sk.upjs.ics.autobazar.InzeratFactory;
 import sk.upjs.ics.autobazar.InzeratOsobne;
 import sk.upjs.ics.autobazar.InzeratOsobneDao;
@@ -282,7 +284,11 @@ public class PridatOsobneForm extends javax.swing.JDialog {
     }//GEN-LAST:event_okButtonActionPerformed
 
     private void pridatObrazokButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pridatObrazokButtonActionPerformed
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Image Files", "jpg", "png", "gif", "jpeg");
         final JFileChooser chooser = new JFileChooser();
+        chooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+        chooser.setFileFilter(filter);
+        chooser.setAcceptAllFileFilterUsed(false);
         chooser.showOpenDialog(this);
         if (chooser.getSelectedFile() != null) {
             obrazokTextField.setText(chooser.getSelectedFile().getPath());
