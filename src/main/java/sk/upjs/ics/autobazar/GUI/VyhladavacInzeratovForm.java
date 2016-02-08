@@ -4,6 +4,8 @@ import java.awt.Frame;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import sk.upjs.ics.autobazar.InzeratFactory;
+import sk.upjs.ics.autobazar.InzeratKaravan;
+import sk.upjs.ics.autobazar.InzeratKaravanDao;
 import sk.upjs.ics.autobazar.InzeratMotocykel;
 import sk.upjs.ics.autobazar.InzeratMotocykelDao;
 import sk.upjs.ics.autobazar.InzeratNakladne;
@@ -17,12 +19,15 @@ public class VyhladavacInzeratovForm extends javax.swing.JDialog {
     private boolean osobne;
     private boolean nakladne;
     private boolean motocykel;
+    private boolean karavan;
     private InzeratOsobneDao inzeratDao = InzeratFactory.INSTANCE.getInzeratOsobneDao();
     private InzeratNakladneDao inzeratDao2 = InzeratFactory.INSTANCE.getInzeratNakladneDao();
     private InzeratMotocykelDao inzeratDao3 = InzeratFactory.INSTANCE.getInzeratMotocykelDao();
+    private InzeratKaravanDao inzeratDao4= InzeratFactory.INSTANCE.getInzeratKaravanDao();
     public List<InzeratOsobne> inzeraty = null;
     public List<InzeratNakladne> inzeraty2 = null;
     public List<InzeratMotocykel> inzeraty3 = null;
+    public List<InzeratKaravan> inzeraty4 = null;
     
     /**
      * Creates new form VyhladavacInzeratovForm
@@ -33,13 +38,14 @@ public class VyhladavacInzeratovForm extends javax.swing.JDialog {
         
     }
     
-    VyhladavacInzeratovForm(Frame parent, boolean modal, boolean osobne, boolean nakladne, boolean motocykel, String[] item) {
+    VyhladavacInzeratovForm(Frame parent, boolean modal, boolean osobne, boolean nakladne, boolean motocykel, boolean karavan, String[] item) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
         this.osobne=osobne;
         this.nakladne=nakladne;
         this.motocykel=motocykel;
+        this.karavan=karavan;
         znackaBox.setModel(new DefaultComboBoxModel(item));
          
         //inzeratyList.setListData(inzeraty.toArray());
@@ -53,6 +59,9 @@ public class VyhladavacInzeratovForm extends javax.swing.JDialog {
     }
     public List<InzeratMotocykel> hladaj3(){
         return inzeraty3;
+    }
+    public List<InzeratKaravan> hladaj4(){
+        return inzeraty4;
     }
 
     /**
@@ -204,12 +213,11 @@ public class VyhladavacInzeratovForm extends javax.swing.JDialog {
     }//GEN-LAST:event_spatButtonActionPerformed
 
     private void znackaBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_znackaBoxActionPerformed
-       if (osobne == true && nakladne == false && motocykel == false) {
+       if (osobne == true && nakladne == false && motocykel == false && karavan==false) {
             if (znackaBox.getSelectedIndex() == 1) {
                 String[] items = {"A4", "A6", "Q7"};
                 modelBox.setModel(new DefaultComboBoxModel(items));
-            }
-    
+            }    
             if (znackaBox.getSelectedIndex() == 2) {
                 String[] items = {"Fabia", "Octavia", "Felicia"};
                 modelBox.setModel(new DefaultComboBoxModel(items));
@@ -223,12 +231,11 @@ public class VyhladavacInzeratovForm extends javax.swing.JDialog {
                 modelBox.setModel(new DefaultComboBoxModel(items));
             }
         }
-        if(nakladne==true && osobne==false && motocykel==false){
+        if(nakladne==true && osobne==false && motocykel==false && karavan==false){
             if (znackaBox.getSelectedIndex() == 1) {
                 String[] items = {"LF", "CF", "XF"};
                 modelBox.setModel(new DefaultComboBoxModel(items));
             }
-
             if (znackaBox.getSelectedIndex() == 2) {
                 String[] items = {"Eurocargo 2", "Stralis 2", "Trakker 2"};
                 modelBox.setModel(new DefaultComboBoxModel(items));
@@ -242,12 +249,11 @@ public class VyhladavacInzeratovForm extends javax.swing.JDialog {
                 modelBox.setModel(new DefaultComboBoxModel(items));
             }
         }
-        if(nakladne==false && osobne==false && motocykel==true){
+        if(nakladne==false && osobne==false && motocykel==true && karavan==false){
             if (znackaBox.getSelectedIndex() == 1) {
                 String[] items = {"S", "F", "R"};
                 modelBox.setModel(new DefaultComboBoxModel(items));
             }
-
             if (znackaBox.getSelectedIndex() == 2) {
                 String[] items = {"CBR", "VTR", "CBF"};
                 modelBox.setModel(new DefaultComboBoxModel(items));
@@ -261,19 +267,41 @@ public class VyhladavacInzeratovForm extends javax.swing.JDialog {
                 modelBox.setModel(new DefaultComboBoxModel(items));
             }
         }
+        if(nakladne==false && osobne==false && motocykel==false && karavan==true){
+            if (znackaBox.getSelectedIndex() == 1) {
+                String[] items = {"Caravan", "Ducato", "Traveller"};
+                modelBox.setModel(new DefaultComboBoxModel(items));
+            }
+            if (znackaBox.getSelectedIndex() == 2) {
+                String[] items = {"Explorer", "Scooby", "Brave"};
+                modelBox.setModel(new DefaultComboBoxModel(items));
+            }
+            if (znackaBox.getSelectedIndex() == 3) {
+                String[] items = {"Lilly", "Marie", "Laura"};
+                modelBox.setModel(new DefaultComboBoxModel(items));
+            }
+            if (znackaBox.getSelectedIndex() == 4) {
+                String[] items = {"T1", "E1", "E2"};
+                modelBox.setModel(new DefaultComboBoxModel(items));
+            }
+        }
     }//GEN-LAST:event_znackaBoxActionPerformed
 
     private void vyhladajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vyhladajButtonActionPerformed
-        if (osobne == true && nakladne == false && motocykel == false) {
+        if (osobne == true && nakladne == false && motocykel == false && karavan == false) {
             inzeraty = inzeratDao.vyhladaj(znackaBox.getSelectedItem().toString(), modelBox.getSelectedItem().toString(),
                     odBox.getSelectedItem().toString(), doBox.getSelectedItem().toString());
         }
-        if (osobne == false && nakladne == true && motocykel == false) {
+        if (osobne == false && nakladne == true && motocykel == false && karavan == false) {
             inzeraty2 = inzeratDao2.vyhladaj(znackaBox.getSelectedItem().toString(), modelBox.getSelectedItem().toString(),
                     odBox.getSelectedItem().toString(), doBox.getSelectedItem().toString());
         }
-        if (osobne == false && nakladne == false && motocykel == true) {
+        if (osobne == false && nakladne == false && motocykel == true && karavan == false) {
             inzeraty3 = inzeratDao3.vyhladaj(znackaBox.getSelectedItem().toString(), modelBox.getSelectedItem().toString(),
+                    odBox.getSelectedItem().toString(), doBox.getSelectedItem().toString());
+        }
+        if (osobne == false && nakladne == false && motocykel == false && karavan == true) {
+            inzeraty4 = inzeratDao4.vyhladaj(znackaBox.getSelectedItem().toString(), modelBox.getSelectedItem().toString(),
                     odBox.getSelectedItem().toString(), doBox.getSelectedItem().toString());
         }
         setVisible(false);

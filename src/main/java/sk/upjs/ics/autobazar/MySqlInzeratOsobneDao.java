@@ -26,8 +26,7 @@ public class MySqlInzeratOsobneDao implements InzeratOsobneDao{
         String sql = "SELECT * FROM inzerat";
         BeanPropertyRowMapper<InzeratOsobne> mapper = BeanPropertyRowMapper.newInstance(InzeratOsobne.class);
         return jdbcTemplate.query(sql, mapper); /*dam dopyt a mapper a vypuje zoznam uloh ktore mozme pouzit*/
-    }
-    
+    }    
 
     @Override
     public void odstranit(InzeratOsobne inzerat) {

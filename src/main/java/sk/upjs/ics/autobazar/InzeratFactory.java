@@ -14,6 +14,8 @@ public enum InzeratFactory {
     
     private InzeratMotocykelDao inzeratDao3;
     
+    private InzeratKaravanDao inzeratDao4;
+    
     private JdbcTemplate jdbcTemplate;
     
     public InzeratOsobneDao getInzeratOsobneDao(){
@@ -21,6 +23,14 @@ public enum InzeratFactory {
             return new MySqlInzeratOsobneDao();
         } else{
             return this.inzeratDao;
+        }
+    }
+    
+    public InzeratKaravanDao getInzeratKaravanDao(){
+        if(this.inzeratDao==null){
+            return new MySqlInzeratKaravanDao();
+        } else{
+            return this.inzeratDao4;
         }
     }
     
@@ -49,10 +59,10 @@ public enum InzeratFactory {
     }
     
     public MysqlDataSource dataSource(){
-         MysqlDataSource dataSource = new MysqlDataSource();
+        MysqlDataSource dataSource = new MysqlDataSource();
         dataSource.setURL("jdbc:mysql://localhost/autobazar");
-        dataSource.setUser("autobazar");
-        dataSource.setPassword("autobazar");
+        dataSource.setUser("root");
+        dataSource.setPassword("22111994");
         
         return dataSource;
     }

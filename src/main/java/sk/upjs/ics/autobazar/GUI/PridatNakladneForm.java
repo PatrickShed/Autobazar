@@ -2,6 +2,8 @@ package sk.upjs.ics.autobazar.GUI;
 
 import java.time.Instant;
 import java.util.Date;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import sk.upjs.ics.autobazar.InzeratFactory;
 import sk.upjs.ics.autobazar.InzeratNakladne;
 import sk.upjs.ics.autobazar.InzeratNakladneDao;
@@ -55,6 +57,8 @@ public class PridatNakladneForm extends javax.swing.JDialog {
         cenaTextField = new javax.swing.JTextField();
         cenaLabel = new javax.swing.JLabel();
         prevodovkaTextField = new javax.swing.JTextField();
+        obrazokTextField = new javax.swing.JTextField();
+        pridatObrazokButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -88,88 +92,109 @@ public class PridatNakladneForm extends javax.swing.JDialog {
 
         cenaLabel.setText("Cena:");
 
+        pridatObrazokButton.setText("Pridat obrázok");
+        pridatObrazokButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pridatObrazokButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(54, 54, 54)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(modelLabel)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(znackaLabel))
+                        .addComponent(znackaLabel)
                         .addGap(35, 35, 35)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(kmTextField)
-                                .addComponent(objemTextField)
-                                .addComponent(rocnikTextField)
-                                .addComponent(modelTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(znackaTextField))
-                        .addGap(242, 242, 242)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(vykonLabel)
-                            .addComponent(prevodovkaLabel)
-                            .addComponent(cenaLabel))
+                        .addComponent(znackaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(54, 54, 54)
+                        .addComponent(prevodovkaLabel)
                         .addGap(19, 19, 19)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(cenaTextField, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(vykonTextField, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(prevodovkaTextField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(prevodovkaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(okButton)))
-                .addGap(18, 18, 18)
-                .addComponent(spatButton)
-                .addGap(50, 50, 50))
+                        .addComponent(modelLabel)
+                        .addGap(41, 41, 41)
+                        .addComponent(modelTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(54, 54, 54)
+                        .addComponent(vykonLabel)
+                        .addGap(47, 47, 47)
+                        .addComponent(vykonTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(38, 38, 38)
+                        .addComponent(rocnikTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(38, 38, 38)
+                        .addComponent(objemTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(54, 54, 54)
+                        .addComponent(cenaLabel)
+                        .addGap(51, 51, 51)
+                        .addComponent(cenaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(55, 55, 55)
+                        .addComponent(kmTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(obrazokTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(pridatObrazokButton)
+                        .addGap(211, 211, 211)
+                        .addComponent(okButton)
+                        .addGap(18, 18, 18)
+                        .addComponent(spatButton))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(109, 109, 109)
+                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(znackaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(prevodovkaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(znackaLabel)
+                            .addComponent(prevodovkaLabel))))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(modelTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(vykonTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(modelLabel)
+                            .addComponent(vykonLabel))))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(znackaLabel)
-                            .addComponent(znackaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(modelTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(modelLabel))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(rocnikTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(objemTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(kmTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(3, 3, 3)
+                        .addComponent(jLabel1))
+                    .addComponent(rocnikTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(objemTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cenaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(prevodovkaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(prevodovkaLabel))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(vykonTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(vykonLabel))
-                        .addGap(56, 56, 56)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cenaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cenaLabel))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 158, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(spatButton)
-                            .addComponent(okButton))
-                        .addGap(26, 26, 26))))
+                        .addGap(3, 3, 3)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(cenaLabel))))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(jLabel3))
+                    .addComponent(kmTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(obrazokTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(11, 11, 11)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pridatObrazokButton)
+                    .addComponent(okButton)
+                    .addComponent(spatButton)))
         );
 
         pack();
@@ -182,16 +207,55 @@ public class PridatNakladneForm extends javax.swing.JDialog {
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
         InzeratNakladne i = new InzeratNakladne();
         Long value = null;
+        if (znackaTextField.getText().trim().equals("")){
+            JOptionPane.showMessageDialog(this, "Nezadali ste znacku.");
+            return;
+        }
         i.setZnacka(znackaTextField.getText());
+        
+        if (modelTextField.getText().trim().equals("")){
+            JOptionPane.showMessageDialog(this, "Nezadali ste model.");
+            return;
+        }
         i.setModel(modelTextField.getText());
+        
+        if (rocnikTextField.getText().trim().equals("")){
+            JOptionPane.showMessageDialog(this, "Nezadali ste rocnik.");
+            return;
+        }
         i.setRocnik(rocnikTextField.getText());
+        
+        if (objemTextField.getText().trim().equals("")){
+            JOptionPane.showMessageDialog(this, "Nezadali ste objem.");
+            return;
+        }
         value = Long.parseLong(objemTextField.getText());
         i.setObjem(value);
+        
+        if (kmTextField.getText().trim().equals("")){
+            JOptionPane.showMessageDialog(this, "Nezadali ste pocet kilometrov.");
+            return;
+        }
         value = Long.parseLong(kmTextField.getText());
         i.setKm(value);
+        
+        if (prevodovkaTextField.getText().trim().equals("")){
+            JOptionPane.showMessageDialog(this, "Nezadali ste typ prevodovky.");
+            return;
+        }
         i.setPrevodovka(prevodovkaTextField.getText());
+        
+        if (vykonTextField.getText().trim().equals("")){
+            JOptionPane.showMessageDialog(this, "Nezadali ste vykon.");
+            return;
+        }
         value = Long.parseLong(vykonTextField.getText());
         i.setVykon(value);
+        
+        if (cenaTextField.getText().trim().equals("")){
+            JOptionPane.showMessageDialog(this, "Nezadali ste cenu.");
+            return;
+        }
         value = Long.parseLong(cenaTextField.getText());
         i.setCena(value);
         i.setDatumPridania(Date.from(Instant.now()));
@@ -200,6 +264,14 @@ public class PridatNakladneForm extends javax.swing.JDialog {
         inzeratDao2.pridat(i);
         setVisible(false);
     }//GEN-LAST:event_okButtonActionPerformed
+
+    private void pridatObrazokButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pridatObrazokButtonActionPerformed
+        final JFileChooser chooser = new JFileChooser();
+        chooser.showOpenDialog(this);
+        if (chooser.getSelectedFile() != null) {
+            obrazokTextField.setText(chooser.getSelectedFile().getPath());
+        }
+    }//GEN-LAST:event_pridatObrazokButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -254,9 +326,11 @@ public class PridatNakladneForm extends javax.swing.JDialog {
     private javax.swing.JLabel modelLabel;
     private javax.swing.JTextField modelTextField;
     private javax.swing.JTextField objemTextField;
+    private javax.swing.JTextField obrazokTextField;
     private javax.swing.JButton okButton;
     private javax.swing.JLabel prevodovkaLabel;
     private javax.swing.JTextField prevodovkaTextField;
+    private javax.swing.JButton pridatObrazokButton;
     private javax.swing.JTextField rocnikTextField;
     private javax.swing.JButton spatButton;
     private javax.swing.JLabel vykonLabel;

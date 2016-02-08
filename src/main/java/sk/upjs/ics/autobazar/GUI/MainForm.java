@@ -1,4 +1,3 @@
- 
 package sk.upjs.ics.autobazar.GUI;
 
 import java.text.SimpleDateFormat;
@@ -9,6 +8,8 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import javax.swing.JOptionPane;
 import sk.upjs.ics.autobazar.InzeratFactory;
+import sk.upjs.ics.autobazar.InzeratKaravan;
+import sk.upjs.ics.autobazar.InzeratKaravanDao;
 import sk.upjs.ics.autobazar.InzeratMotocykel;
 import sk.upjs.ics.autobazar.InzeratMotocykelDao;
 import sk.upjs.ics.autobazar.InzeratNakladne;
@@ -24,42 +25,44 @@ public class MainForm extends javax.swing.JFrame {
     private InzeratNakladneDao inzeratDao2 = InzeratFactory.INSTANCE.getInzeratNakladneDao();
     private PouzivatelDao pouzivatelDao = InzeratFactory.INSTANCE.getPouzivatel();
     private InzeratMotocykelDao inzeratDao3 = InzeratFactory.INSTANCE.getInzeratMotocykelDao();
+    private InzeratKaravanDao inzeratDao4 = InzeratFactory.INSTANCE.getInzeratKaravanDao();
     //private MySqlPouzivatelDao pouzivatelDao = new MySqlPouzivatelDao();
-    
+
     private boolean osobne = true;
     private boolean nakladne = false;
     private boolean motocykel = false;
-    
+    private boolean karavan = false;
+
     private boolean prihlaseny = false;
     private Long idP = null;
-    
+
     /**
      * Creates new form MainForm
      */
     public MainForm() {
         initComponents();
         refresh();
-        
+
     }
 
-    
-    public void currentDateAndTime(){
+    public void currentDateAndTime() {
         String[] dayOfWeek = {"nedela", "pondelok", "utorok", "streda", "stvrtok", "piatok", "sobota"};
         String[] months = {"januara", "februara", "marca", "aprila", "maja", "juna", "jula", "augusta", "septembra", "oktobra", "novembra", "decembra"};
         Calendar cal = new GregorianCalendar();
-       
+
         int year = cal.get(Calendar.YEAR);
         int day = cal.get(Calendar.DAY_OF_MONTH);
-        
+
         int nameOfMonth = cal.get(Calendar.MONTH);
         int nameOfDay = cal.get(Calendar.DAY_OF_WEEK);
-       
+
         Calendar calen = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-        
+
         //+' '+hour+":"+minute+":"+second
-        dateAndTimeLabel.setText("Dnes je"+' '+dayOfWeek[nameOfDay-1]+", "+day+"."+months[nameOfMonth]+' '+year +' '+ sdf.format(calen.getTime()));
+        dateAndTimeLabel.setText("Dnes je" + ' ' + dayOfWeek[nameOfDay - 1] + ", " + day + "." + months[nameOfMonth] + ' ' + year + ' ' + sdf.format(calen.getTime()));
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -96,9 +99,10 @@ public class MainForm extends javax.swing.JFrame {
         pridatInzeratButton = new javax.swing.JButton();
         podnadpisLabel = new javax.swing.JLabel();
         osobneButton = new javax.swing.JButton();
-        nakladneButton = new javax.swing.JButton();
+        karavanyButton = new javax.swing.JButton();
         motocykelButton = new javax.swing.JButton();
         odhlasitButton = new javax.swing.JButton();
+        nakladneButton1 = new javax.swing.JButton();
         downPanel = new javax.swing.JPanel();
         copyrightLabel = new javax.swing.JLabel();
 
@@ -309,13 +313,13 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
 
-        nakladneButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sk/upjs/ics/autobazar/ikonky/truck_32.png"))); // NOI18N
-        nakladneButton.setText("Nakladne");
-        nakladneButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        nakladneButton.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
-        nakladneButton.addActionListener(new java.awt.event.ActionListener() {
+        karavanyButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sk/upjs/ics/autobazar/ikonky/truck_32.png"))); // NOI18N
+        karavanyButton.setText("Nakladne");
+        karavanyButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        karavanyButton.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
+        karavanyButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nakladneButtonActionPerformed(evt);
+                karavanyButtonActionPerformed(evt);
             }
         });
 
@@ -340,6 +344,16 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
 
+        nakladneButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sk/upjs/ics/autobazar/ikonky/karavan2.png"))); // NOI18N
+        nakladneButton1.setText("Karavan");
+        nakladneButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        nakladneButton1.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
+        nakladneButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nakladneButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout autobazarPanelLayout = new javax.swing.GroupLayout(autobazarPanel);
         autobazarPanel.setLayout(autobazarPanelLayout);
         autobazarPanelLayout.setHorizontalGroup(
@@ -353,11 +367,13 @@ public class MainForm extends javax.swing.JFrame {
                         .addGap(169, 169, 169)
                         .addComponent(podnadpisLabel)))
                 .addGap(27, 27, 27)
-                .addComponent(osobneButton, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(osobneButton, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(nakladneButton, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(nakladneButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(motocykelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(motocykelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(karavanyButton, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(autobazarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(pridatInzeratButton, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
@@ -366,20 +382,21 @@ public class MainForm extends javax.swing.JFrame {
         );
         autobazarPanelLayout.setVerticalGroup(
             autobazarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(autobazarPanelLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, autobazarPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(autobazarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(autobazarPanelLayout.createSequentialGroup()
+                .addGroup(autobazarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, autobazarPanelLayout.createSequentialGroup()
                         .addComponent(pridatInzeratButton, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(odhlasitButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(motocykelButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(nakladneButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(osobneButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, autobazarPanelLayout.createSequentialGroup()
+                    .addComponent(motocykelButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(karavanyButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(osobneButton, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(autobazarPanelLayout.createSequentialGroup()
                         .addComponent(nadpisLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
-                        .addComponent(podnadpisLabel)))
+                        .addComponent(podnadpisLabel))
+                    .addComponent(nakladneButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -456,12 +473,12 @@ public class MainForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void znackaBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_znackaBoxActionPerformed
-        if (osobne == true && nakladne == false && motocykel == false) {
+        if (osobne == true && nakladne == false && motocykel == false && karavan == false) {
             if (znackaBox.getSelectedIndex() == 1) {
                 String[] items = {"A4", "A6", "Q7"};
                 modelBox.setModel(new DefaultComboBoxModel(items));
             }
-    
+
             if (znackaBox.getSelectedIndex() == 2) {
                 String[] items = {"Fabia", "Octavia", "Felicia"};
                 modelBox.setModel(new DefaultComboBoxModel(items));
@@ -475,7 +492,7 @@ public class MainForm extends javax.swing.JFrame {
                 modelBox.setModel(new DefaultComboBoxModel(items));
             }
         }
-        if(nakladne==true && osobne==false && motocykel==false){
+        if (nakladne == true && osobne == false && motocykel == false && karavan == false) {
             if (znackaBox.getSelectedIndex() == 1) {
                 String[] items = {"LF", "CF", "XF"};
                 modelBox.setModel(new DefaultComboBoxModel(items));
@@ -494,7 +511,7 @@ public class MainForm extends javax.swing.JFrame {
                 modelBox.setModel(new DefaultComboBoxModel(items));
             }
         }
-        if(nakladne==false && osobne==false && motocykel==true){
+        if (nakladne == false && osobne == false && motocykel == true && karavan == false) {
             if (znackaBox.getSelectedIndex() == 1) {
                 String[] items = {"S", "F", "R"};
                 modelBox.setModel(new DefaultComboBoxModel(items));
@@ -513,60 +530,89 @@ public class MainForm extends javax.swing.JFrame {
                 modelBox.setModel(new DefaultComboBoxModel(items));
             }
         }
+        if (nakladne == false && osobne == false && motocykel == false && karavan == true) {
+            if (znackaBox.getSelectedIndex() == 1) {
+                String[] items = {"Caravan", "Ducato", "Traveller"};
+                modelBox.setModel(new DefaultComboBoxModel(items));
+            }
+            if (znackaBox.getSelectedIndex() == 2) {
+                String[] items = {"Explorer", "Scooby", "Brave"};
+                modelBox.setModel(new DefaultComboBoxModel(items));
+            }
+            if (znackaBox.getSelectedIndex() == 3) {
+                String[] items = {"Lilly", "Marie", "Laura"};
+                modelBox.setModel(new DefaultComboBoxModel(items));
+            }
+            if (znackaBox.getSelectedIndex() == 4) {
+                String[] items = {"T1", "E1", "E2"};
+                modelBox.setModel(new DefaultComboBoxModel(items));
+            }
+        }
     }//GEN-LAST:event_znackaBoxActionPerformed
 
-    
+
     private void vyhladajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vyhladajButtonActionPerformed
-        if(znackaBox.getSelectedItem().toString().equals("zadaj znacku ...")){
+        if (znackaBox.getSelectedItem().toString().equals("zadaj znacku ...")) {
             JOptionPane.showMessageDialog(this, "Nebola zvolena znacka!");
             return;
         }
-        if (osobne == true && nakladne == false && motocykel == false) {
+        if (osobne == true && nakladne == false && motocykel == false && karavan == false) {
             List<InzeratOsobne> inzeraty = inzeratDao.vyhladaj(znackaBox.getSelectedItem().toString(), modelBox.getSelectedItem().toString(),
                     rocnikOdBox.getSelectedItem().toString(), rocnikDoBox.getSelectedItem().toString());
             inzeratyList.setListData(inzeraty.toArray());
         }
-        if(nakladne==true && osobne==false && motocykel==false){
+        if (nakladne == true && osobne == false && motocykel == false && karavan == false) {
             List<InzeratNakladne> inzeraty = inzeratDao2.vyhladaj(znackaBox.getSelectedItem().toString(), modelBox.getSelectedItem().toString(),
                     rocnikOdBox.getSelectedItem().toString(), rocnikDoBox.getSelectedItem().toString());
             inzeratyList.setListData(inzeraty.toArray());
         }
-        if(nakladne==false && osobne==false && motocykel==true){
+        if (nakladne == false && osobne == false && motocykel == true && karavan == false) {
             List<InzeratMotocykel> inzeraty = inzeratDao3.vyhladaj(znackaBox.getSelectedItem().toString(), modelBox.getSelectedItem().toString(),
                     rocnikOdBox.getSelectedItem().toString(), rocnikDoBox.getSelectedItem().toString());
             inzeratyList.setListData(inzeraty.toArray());
         }
-        
+        if (nakladne == false && osobne == false && motocykel == false && karavan == true) {
+            List<InzeratKaravan> inzeraty = inzeratDao4.vyhladaj(znackaBox.getSelectedItem().toString(), modelBox.getSelectedItem().toString(),
+                    rocnikOdBox.getSelectedItem().toString(), rocnikDoBox.getSelectedItem().toString());
+            inzeratyList.setListData(inzeraty.toArray());
+        }
+
     }//GEN-LAST:event_vyhladajButtonActionPerformed
 
     private void inzeratyListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inzeratyListMouseClicked
-       if(evt.getClickCount()==2){
-            if(osobne==true && nakladne==false && motocykel==false)
-            {
+        if (evt.getClickCount() == 2) {
+            if (osobne == true && nakladne == false && motocykel == false && karavan == false) {
                 InzeratOsobne inzerat = (InzeratOsobne) inzeratyList.getSelectedValue();
 
                 InzeratOsobneForm inzeratform = new InzeratOsobneForm(this, true, inzerat);
                 inzeratform.setVisible(true);
             }
-            if(nakladne==true && osobne==false && motocykel==false)
-            {
+
+            if (nakladne == true && osobne == false && motocykel == false && karavan == false) {
                 InzeratNakladne inzerat = (InzeratNakladne) inzeratyList.getSelectedValue();
 
                 InzeratNakladneForm inzeratform = new InzeratNakladneForm(this, true, inzerat);
                 inzeratform.setVisible(true);
             }
-            if(nakladne==false && osobne==false && motocykel==true)
-            {
+
+            if (nakladne == false && osobne == false && motocykel == true && karavan == false) {
                 InzeratMotocykel inzerat = (InzeratMotocykel) inzeratyList.getSelectedValue();
 
                 InzeratMotocykelForm inzeratForm = new InzeratMotocykelForm(this, true, inzerat);
+                inzeratForm.setVisible(true);
+            }
+
+            if (nakladne == false && osobne == false && motocykel == false && karavan == true) {
+                InzeratKaravan inzerat = (InzeratKaravan) inzeratyList.getSelectedValue();
+
+                InzeratKaravanForm inzeratForm = new InzeratKaravanForm(this, true, inzerat);
                 inzeratForm.setVisible(true);
             }
         }
     }//GEN-LAST:event_inzeratyListMouseClicked
 
     private void modelBoxPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_modelBoxPropertyChange
-       
+
     }//GEN-LAST:event_modelBoxPropertyChange
 
     private void rocnikOdBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rocnikOdBoxActionPerformed
@@ -582,9 +628,9 @@ public class MainForm extends javax.swing.JFrame {
         if (prihlaseny == false) {
             PrihlasenieForm pf = new PrihlasenieForm(this, true);
             pf.setVisible(true);
-            this.prihlaseny=pf.getPrihlaseny();
-            this.idP=pf.getIdP();
-        }else{
+            this.prihlaseny = pf.getPrihlaseny();
+            this.idP = pf.getIdP();
+        } else {
             JOptionPane.showMessageDialog(this, "Pouzivatel je stale prihlaseny!");
         }
     }//GEN-LAST:event_prihlasenieButtonActionPerformed
@@ -593,88 +639,121 @@ public class MainForm extends javax.swing.JFrame {
         refresh();
     }//GEN-LAST:event_osobneButtonActionPerformed
 
-    private void nakladneButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nakladneButtonActionPerformed
+    private void karavanyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_karavanyButtonActionPerformed
         refresh2();
-    }//GEN-LAST:event_nakladneButtonActionPerformed
+    }//GEN-LAST:event_karavanyButtonActionPerformed
 
     private void motocykelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_motocykelButtonActionPerformed
         refresh3();
     }//GEN-LAST:event_motocykelButtonActionPerformed
 
     private void rozsireneButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rozsireneButtonActionPerformed
-        if(osobne==true && nakladne==false && motocykel==false){
+        if (osobne == true && nakladne == false && motocykel == false && karavan == false) {
             String[] item = {"zadaj znacku ...", "Audi", "Skoda", "Volkswagen", "Volvo"};
-            VyhladavacInzeratovForm vi = new VyhladavacInzeratovForm(this, true, osobne,nakladne,motocykel,item);
+            VyhladavacInzeratovForm vi = new VyhladavacInzeratovForm(this, true, osobne, nakladne, motocykel, karavan, item);
             vi.setVisible(true);
-            inzeratyList.setListData(vi.hladaj().toArray());
+            if (vi.hladaj() != null) {
+                inzeratyList.setListData(vi.hladaj().toArray());
+            }
         }
-        if(nakladne==true && osobne==false && motocykel==false){
+        if (nakladne == true && osobne == false && motocykel == false && karavan == false) {
             String[] item = {"zadaj znacku ...", "DAF", "Iveco", "MAN", "Mercedes"};
-            VyhladavacInzeratovForm vi = new VyhladavacInzeratovForm(this, true, osobne,nakladne,motocykel,item);
+            VyhladavacInzeratovForm vi = new VyhladavacInzeratovForm(this, true, osobne, nakladne, motocykel, karavan, item);
             vi.setVisible(true);
-            inzeratyList.setListData(vi.hladaj2().toArray());
+            if (vi.hladaj2() != null) {
+                inzeratyList.setListData(vi.hladaj2().toArray());
+            }
         }
-        if(nakladne==false && osobne==false && motocykel==true){
+        if (nakladne == false && osobne == false && motocykel == true && karavan == false) {
             String[] item = {"zadaj znacku ...", "BMW", "Honda", "Husqvarna", "Suzuki"};
-            VyhladavacInzeratovForm vi = new VyhladavacInzeratovForm(this, true, osobne,nakladne,motocykel,item);
+            VyhladavacInzeratovForm vi = new VyhladavacInzeratovForm(this, true, osobne, nakladne, motocykel, karavan, item);
             vi.setVisible(true);
-            inzeratyList.setListData(vi.hladaj3().toArray());
+            if (vi.hladaj3() != null) {
+                inzeratyList.setListData(vi.hladaj3().toArray());
+            }
         }
-        
+        if (nakladne == false && osobne == false && motocykel == false && karavan == true) {
+            String[] item = {"zadaj znacku ...", "Fiat", "Volkswagen", "Hymer", "Dethleffs"};
+            VyhladavacInzeratovForm vi = new VyhladavacInzeratovForm(this, true, osobne, nakladne, motocykel, karavan, item);
+            vi.setVisible(true);
+            if (vi.hladaj4() != null) {
+                inzeratyList.setListData(vi.hladaj4().toArray());
+            }
+        }
+
     }//GEN-LAST:event_rozsireneButtonActionPerformed
 
     private void pridatInzeratButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pridatInzeratButtonActionPerformed
-        if(prihlaseny==true){            
+        if (prihlaseny == true) {
             PouzivatelForm pouzF = new PouzivatelForm(this, true, idP);
             pouzF.setVisible(true);
-        }else{
+        } else {
             JOptionPane.showMessageDialog(this, "Nie si prihlaseny!");
         }
     }//GEN-LAST:event_pridatInzeratButtonActionPerformed
 
     private void odhlasitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_odhlasitButtonActionPerformed
-        if(prihlaseny==false){
+        if (prihlaseny == false) {
             JOptionPane.showMessageDialog(this, "Nie si prihlaseny!");
-        }else{
-            this.prihlaseny=false;
-            this.idP=null;
+        } else {
+            this.prihlaseny = false;
+            this.idP = null;
             JOptionPane.showMessageDialog(this, "Odhlaseny!");
         }
     }//GEN-LAST:event_odhlasitButtonActionPerformed
 
-    private void refresh() {        
+    private void nakladneButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nakladneButton1ActionPerformed
+        refresh4();
+    }//GEN-LAST:event_nakladneButton1ActionPerformed
+
+    private void refresh() {
         currentDateAndTime();
-        osobne=true;
-        nakladne=false;
-        motocykel=false;
+        osobne = true;
+        nakladne = false;
+        motocykel = false;
+        karavan = false;
         List<InzeratOsobne> inzeraty = inzeratDao.dajVsetky();
         inzeratyList.setListData(inzeraty.toArray());
         String[] item = {"zadaj znacku ...", "Audi", "Skoda", "Volkswagen", "Volvo"};
         znackaBox.setModel(new DefaultComboBoxModel(item));
     }
-    
-    private void refresh2() {        
+
+    private void refresh2() {
         currentDateAndTime();
-        osobne=false;
-        nakladne=true;        
-        motocykel=false;
+        osobne = false;
+        nakladne = true;
+        motocykel = false;
+        karavan = false;
         List<InzeratNakladne> inzeraty = inzeratDao2.dajVsetky();
-        inzeratyList.setListData(inzeraty.toArray());        
+        inzeratyList.setListData(inzeraty.toArray());
         String[] item = {"zadaj znacku ...", "DAF", "Iveco", "MAN", "Mercedes"};
         znackaBox.setModel(new DefaultComboBoxModel(item));
     }
-    
-    private void refresh3() {        
+
+    private void refresh3() {
         currentDateAndTime();
-        osobne=false;
-        nakladne=false;
-        motocykel=true;
+        osobne = false;
+        nakladne = false;
+        motocykel = true;
+        karavan = false;
         List<InzeratMotocykel> inzeraty = inzeratDao3.dajVsetky();
         inzeratyList.setListData(inzeraty.toArray());
         String[] item = {"zadaj znacku ...", "BMW", "Honda", "Husqvarna", "Suzuki"};
         znackaBox.setModel(new DefaultComboBoxModel(item));
     }
-    
+
+    private void refresh4() {
+        currentDateAndTime();
+        osobne = false;
+        nakladne = false;
+        motocykel = false;
+        karavan = true;
+        List<InzeratKaravan> inzeraty = inzeratDao4.dajVsetky();
+        inzeratyList.setListData(inzeraty.toArray());
+        String[] item = {"zadaj znacku ...", "Fiat", "Volkswagen", "Hymer", "Dethleffs"};
+        znackaBox.setModel(new DefaultComboBoxModel(item));
+    }
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -706,8 +785,7 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
     }
-    
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane autobazarDesktopPane;
@@ -717,12 +795,13 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JPanel downPanel;
     private javax.swing.JList inzeratyList;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JButton karavanyButton;
     private javax.swing.JLabel languageLabel;
     private javax.swing.JComboBox modelBox;
     private javax.swing.JLabel modelLabel;
     private javax.swing.JButton motocykelButton;
     private javax.swing.JLabel nadpisLabel;
-    private javax.swing.JButton nakladneButton;
+    private javax.swing.JButton nakladneButton1;
     private javax.swing.JButton odhlasitButton;
     private javax.swing.JButton osobneButton;
     private javax.swing.JLabel podnadpisLabel;

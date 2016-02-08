@@ -7,12 +7,14 @@ package sk.upjs.ics.autobazar.GUI;
 
 import java.util.List;
 import sk.upjs.ics.autobazar.InzeratFactory;
+import sk.upjs.ics.autobazar.InzeratKaravan;
 import sk.upjs.ics.autobazar.InzeratMotocykel;
 import sk.upjs.ics.autobazar.InzeratMotocykelDao;
 import sk.upjs.ics.autobazar.InzeratNakladne;
 import sk.upjs.ics.autobazar.InzeratNakladneDao;
 import sk.upjs.ics.autobazar.InzeratOsobne;
 import sk.upjs.ics.autobazar.InzeratOsobneDao;
+import sk.upjs.ics.autobazar.InzeratKaravanDao;
 
 /**
  *
@@ -24,6 +26,7 @@ public class PouzivatelForm extends javax.swing.JDialog {
     private InzeratOsobneDao inzeratDao = InzeratFactory.INSTANCE.getInzeratOsobneDao();
     private InzeratNakladneDao inzeratDao2 = InzeratFactory.INSTANCE.getInzeratNakladneDao();
     private InzeratMotocykelDao inzeratDao3 = InzeratFactory.INSTANCE.getInzeratMotocykelDao();
+    private InzeratKaravanDao inzeratDao4 = InzeratFactory.INSTANCE.getInzeratKaravanDao();
 
     /**
      * Creates new form PouzivatelForm
@@ -57,6 +60,13 @@ public class PouzivatelForm extends javax.swing.JDialog {
         inzeratyPouzivatelaList.setListData(inzeraty.toArray());
         nadpisLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sk/upjs/ics/autobazar/ikonky/Transport-Motorcycle-icon.png")));
     }
+    
+    public void refresh4(){
+        List<InzeratKaravan> inzeraty = inzeratDao4.dajPodlaPouzivatela(idP);
+        inzeratyPouzivatelaList.setListData(inzeraty.toArray());
+        nadpisLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sk/upjs/ics/autobazar/ikonky/truck_32.png")));        
+    }    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -78,6 +88,7 @@ public class PouzivatelForm extends javax.swing.JDialog {
         nakladneRadioButton = new javax.swing.JRadioButton();
         motocykleRadioButton = new javax.swing.JRadioButton();
         nadpisLabel = new javax.swing.JLabel();
+        karavanyRadioButton = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -139,6 +150,14 @@ public class PouzivatelForm extends javax.swing.JDialog {
         nadpisLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sk/upjs/ics/autobazar/ikonky/Transport-Car-icon (1).png"))); // NOI18N
         nadpisLabel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
+        buttonGroup1.add(karavanyRadioButton);
+        karavanyRadioButton.setText("Karavany");
+        karavanyRadioButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                karavanyRadioButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -158,10 +177,6 @@ public class PouzivatelForm extends javax.swing.JDialog {
                         .addGap(69, 69, 69)
                         .addComponent(nakladneRadioButton, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(69, 69, 69)
-                        .addComponent(motocykleRadioButton, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(65, 65, 65)
                         .addComponent(pridatButton, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
@@ -169,7 +184,15 @@ public class PouzivatelForm extends javax.swing.JDialog {
                         .addComponent(vymazatButton))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(197, 197, 197)
-                        .addComponent(spatButton))))
+                        .addComponent(spatButton))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(69, 69, 69)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(karavanyRadioButton, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(motocykleRadioButton, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -185,8 +208,10 @@ public class PouzivatelForm extends javax.swing.JDialog {
                 .addComponent(nakladneRadioButton)
                 .addGap(3, 3, 3)
                 .addComponent(motocykleRadioButton)
-                .addGap(18, 18, 18)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(5, 5, 5)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(karavanyRadioButton))
                 .addGap(30, 30, 30)
                 .addComponent(pridatButton)
                 .addGap(50, 50, 50)
@@ -239,6 +264,14 @@ public class PouzivatelForm extends javax.swing.JDialog {
             inzeratDao3.odstranit(inzeratMotocykel);
             refresh3();
         }
+        if (karavanyRadioButton.isSelected()) {
+            InzeratKaravan inzeratKaravan = (InzeratKaravan) inzeratyPouzivatelaList.getSelectedValue();
+            if (inzeratKaravan == null) {
+                return;
+            }
+            inzeratDao4.odstranit(inzeratKaravan);
+            refresh4();
+        }        
     }//GEN-LAST:event_vymazatButtonActionPerformed
 
     private void pridatButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pridatButtonActionPerformed
@@ -257,7 +290,16 @@ public class PouzivatelForm extends javax.swing.JDialog {
             pmc.setVisible(true);
             refresh3();
         }
+        if (karavanyRadioButton.isSelected()) {
+            PridatKaravanForm pkf = new PridatKaravanForm(null, true, idP);
+            pkf.setVisible(true);
+            refresh4();
+        }
     }//GEN-LAST:event_pridatButtonActionPerformed
+
+    private void karavanyRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_karavanyRadioButtonActionPerformed
+        refresh4();
+    }//GEN-LAST:event_karavanyRadioButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -306,6 +348,7 @@ public class PouzivatelForm extends javax.swing.JDialog {
     private javax.swing.JList inzeratyPouzivatelaList;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JRadioButton karavanyRadioButton;
     private javax.swing.JRadioButton motocykleRadioButton;
     private javax.swing.JLabel nadpisLabel;
     private javax.swing.JRadioButton nakladneRadioButton;

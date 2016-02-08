@@ -45,11 +45,6 @@
                       <Component id="nakladneRadioButton" min="-2" pref="123" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
-                      <EmptySpace min="69" pref="69" max="-2" attributes="0"/>
-                      <Component id="motocykleRadioButton" min="-2" pref="123" max="-2" attributes="0"/>
-                  </Group>
-                  <Component id="jSeparator1" min="-2" pref="252" max="-2" attributes="0"/>
-                  <Group type="102" attributes="0">
                       <EmptySpace min="65" pref="65" max="-2" attributes="0"/>
                       <Component id="pridatButton" min="-2" pref="109" max="-2" attributes="0"/>
                   </Group>
@@ -60,6 +55,17 @@
                   <Group type="102" attributes="0">
                       <EmptySpace min="197" pref="197" max="-2" attributes="0"/>
                       <Component id="spatButton" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="69" pref="69" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="karavanyRadioButton" min="-2" pref="123" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jSeparator1" min="-2" pref="252" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="motocykleRadioButton" min="-2" pref="123" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
               </Group>
           </Group>
@@ -80,9 +86,12 @@
               <Component id="nakladneRadioButton" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="3" pref="3" max="-2" attributes="0"/>
               <Component id="motocykleRadioButton" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
-              <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
-              <EmptySpace min="30" pref="30" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
+                  <Component id="karavanyRadioButton" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
               <Component id="pridatButton" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="50" pref="50" max="-2" attributes="0"/>
               <Component id="vymazatButton" min="-2" max="-2" attributes="0"/>
@@ -188,6 +197,17 @@
         </Property>
         <Property name="horizontalTextPosition" type="int" value="0"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JRadioButton" name="karavanyRadioButton">
+      <Properties>
+        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+          <ComponentRef name="buttonGroup1"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Karavany"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="karavanyRadioButtonActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
