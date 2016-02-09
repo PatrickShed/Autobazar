@@ -106,9 +106,9 @@ public class MySqlInzeratMotocykelDaoTest {
          System.out.println("dajPodlaPouzivatela");
         Long idP = 1L;
         MySqlInzeratMotocykelDao instance = new MySqlInzeratMotocykelDao();
-        List<InzeratMotocykel> expResult = null;
+        //List<InzeratMotocykel> expResult = null;
         List<InzeratMotocykel> result = instance.dajPodlaPouzivatela(idP);
-        assertEquals(expResult, result);
+        assertTrue(!result.isEmpty());
     }
     
 }

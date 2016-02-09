@@ -99,12 +99,11 @@ public class MySqlInzeratNakladneDaoTest {
      */
     @Test
     public void testDajPodlaPouzivatela() {
-         System.out.println("dajPodlaPouzivatela");
+        System.out.println("dajPodlaPouzivatela");
         Long idP = 1L;
-        MySqlInzeratNakladneDao instance = new MySqlInzeratNakladneDao();
-        List<InzeratNakladne> expResult = null;
+        MySqlInzeratNakladneDao instance = new MySqlInzeratNakladneDao();        
         List<InzeratNakladne> result = instance.dajPodlaPouzivatela(idP);
-        assertEquals(expResult, result);
+        assertTrue(!result.isEmpty());
     }
     
 }

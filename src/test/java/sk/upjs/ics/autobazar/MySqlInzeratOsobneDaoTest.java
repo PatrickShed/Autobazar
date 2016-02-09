@@ -11,14 +11,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-public class MySqlInzeratOsobneDaoTest {
-    public static void main(String args[]) {
-        MySqlInzeratOsobneDaoTest a = new MySqlInzeratOsobneDaoTest();
-        a.testPridat();
-        a.testDajVsetky();
-        a.testOdstranit();
-        a.testVyhladaj();
-    }
+public class MySqlInzeratOsobneDaoTest {   
     
     public MySqlInzeratOsobneDaoTest() {
     }
@@ -35,7 +28,6 @@ public class MySqlInzeratOsobneDaoTest {
         inzerat.setRocnik("2002");
         inzerat.setObjem(2000L);
         inzerat.setKm(132456L);
-        inzerat.setPalivo("benzin");
         inzerat.setPrevodovka("manual");
         inzerat.setVykon(120L);
         inzerat.setCena(1800L);
@@ -80,7 +72,7 @@ public class MySqlInzeratOsobneDaoTest {
         inzerat.setIdP(1L);
         MySqlInzeratOsobneDao instance = new MySqlInzeratOsobneDao();
         List<InzeratOsobne> expResult = instance.dajVsetky();
-        inzerat.setId(expResult.get(3).getId());
+        inzerat.setId(expResult.get(1).getId());
         int x = instance.dajVsetky().size();
         instance.odstranit(inzerat);
         // TODO review the generated test code and remove the default call to fail.
@@ -108,9 +100,9 @@ public class MySqlInzeratOsobneDaoTest {
         System.out.println("dajPodlaPouzivatela");
         Long idP = 1L;
         MySqlInzeratOsobneDao instance = new MySqlInzeratOsobneDao();
-        List<InzeratOsobne> expResult = null;
+        //List<InzeratOsobne> expResult = null;
         List<InzeratOsobne> result = instance.dajPodlaPouzivatela(idP);
-        assertEquals(expResult, result);
+        assertTrue(!result.isEmpty());
         
     }
     

@@ -29,12 +29,22 @@ public class InzeratOsobne {
     
     private Long cena;
     
+    private byte[] obrazok;
+    
     private boolean klimatizacia;
     
     private boolean tazneZariadenie;
     
     private boolean vyhrievaneSedadla;
 
+    public byte[] getObrazok() {
+        return obrazok;
+    }
+
+    public void setObrazok(byte[] obrazok) {
+        this.obrazok = obrazok;
+    }
+        
     public boolean isKlimatizacia() {
         return klimatizacia;
     }
