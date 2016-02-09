@@ -65,5 +65,12 @@ public class MySqlInzeratNakladneDao implements InzeratNakladneDao {
         BeanPropertyRowMapper<InzeratNakladne> mapper = BeanPropertyRowMapper.newInstance(InzeratNakladne.class);
         return jdbcTemplate.query(sql, mapper,idP);
     }
+
+    @Override
+    public List<InzeratNakladne> vyhladajViac(String znacka, String model, String odRocnik, String doRocnik, int odKm, int doKm, long odCena, long doCena,boolean klimatizacia, boolean tazneZariadenie, boolean vyhrievaneSedadla) {
+        String sql = "select * from inzeratNakladne where znacka = ? and model = ? and rocnik >= ? and rocnik <= ? and klimatizacia = ? and tazneZariadenie = ? and vyhrievaneSedadla = ? and km >= ? and km <= ? and cena >= ? and cena <= ?";
+        BeanPropertyRowMapper<InzeratNakladne> mapper = BeanPropertyRowMapper.newInstance(InzeratNakladne.class);
+        return jdbcTemplate.query(sql, mapper, znacka, model, odRocnik, doRocnik, klimatizacia, tazneZariadenie, vyhrievaneSedadla, odKm, doKm, odCena, doCena);
+    }
     
 }

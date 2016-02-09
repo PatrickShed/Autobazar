@@ -300,20 +300,26 @@ public class VyhladavacInzeratovForm extends javax.swing.JDialog {
 
     private void vyhladajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vyhladajButtonActionPerformed
         if (osobne == true && nakladne == false && motocykel == false && karavan == false) {
-            inzeraty = inzeratDao.vyhladaj(znackaBox.getSelectedItem().toString(), modelBox.getSelectedItem().toString(),
-                    odBox.getSelectedItem().toString(), doBox.getSelectedItem().toString());
+            inzeraty = inzeratDao.vyhladajViac(znackaBox.getSelectedItem().toString(), modelBox.getSelectedItem().toString(),
+                    odBox.getSelectedItem().toString(), doBox.getSelectedItem().toString(),Integer.parseInt(kmOdTextField.getText()),Integer.parseInt(kmDoTextField.getText()),
+                    Long.parseLong(cenaOdBox.getSelectedItem().toString()),Long.parseLong(cenaDoBox.getSelectedItem().toString()),
+                    klimaCheckBox.isSelected(),tazneCheckBox.isSelected(),sedadlaCheckBox.isSelected());
         }
         if (osobne == false && nakladne == true && motocykel == false && karavan == false) {
-            inzeraty2 = inzeratDao2.vyhladaj(znackaBox.getSelectedItem().toString(), modelBox.getSelectedItem().toString(),
-                    odBox.getSelectedItem().toString(), doBox.getSelectedItem().toString());
+            inzeraty2 = inzeratDao2.vyhladajViac(znackaBox.getSelectedItem().toString(), modelBox.getSelectedItem().toString(),
+                    odBox.getSelectedItem().toString(), doBox.getSelectedItem().toString(),Integer.parseInt(kmOdTextField.getText()),Integer.parseInt(kmDoTextField.getText()),
+                    Long.parseLong(cenaOdBox.getSelectedItem().toString()),Long.parseLong(cenaDoBox.getSelectedItem().toString()),
+                    klimaCheckBox.isSelected(),tazneCheckBox.isSelected(),sedadlaCheckBox.isSelected());
         }
         if (osobne == false && nakladne == false && motocykel == true && karavan == false) {
             inzeraty3 = inzeratDao3.vyhladaj(znackaBox.getSelectedItem().toString(), modelBox.getSelectedItem().toString(),
                     odBox.getSelectedItem().toString(), doBox.getSelectedItem().toString());
         }
         if (osobne == false && nakladne == false && motocykel == false && karavan == true) {
-            inzeraty4 = inzeratDao4.vyhladaj(znackaBox.getSelectedItem().toString(), modelBox.getSelectedItem().toString(),
-                    odBox.getSelectedItem().toString(), doBox.getSelectedItem().toString());
+            inzeraty4 = inzeratDao4.vyhladajViac(znackaBox.getSelectedItem().toString(), modelBox.getSelectedItem().toString(),
+                    odBox.getSelectedItem().toString(), doBox.getSelectedItem().toString(),Integer.parseInt(kmOdTextField.getText()),Integer.parseInt(kmDoTextField.getText()),
+                    Long.parseLong(cenaOdBox.getSelectedItem().toString()),Long.parseLong(cenaDoBox.getSelectedItem().toString()),
+                    klimaCheckBox.isSelected(),tazneCheckBox.isSelected(),sedadlaCheckBox.isSelected());
         }
         setVisible(false);
     }//GEN-LAST:event_vyhladajButtonActionPerformed

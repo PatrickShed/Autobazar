@@ -65,4 +65,11 @@ public class MySqlInzeratOsobneDao implements InzeratOsobneDao{
         BeanPropertyRowMapper<InzeratOsobne> mapper = BeanPropertyRowMapper.newInstance(InzeratOsobne.class);
         return jdbcTemplate.query(sql, mapper,idP);
     }
+
+    @Override
+    public List<InzeratOsobne> vyhladajViac(String znacka, String model, String odRocnik, String doRocnik, int odKm, int doKm, long odCena, long doCena, boolean klimatizacia, boolean tazneZariadenie, boolean vyhrievaneSedadla) {
+        String sql = "select * from inzerat where znacka = ? and model = ? and rocnik >= ? and rocnik <= ? and klimatizacia = ? and tazneZariadenie = ? and vyhrievaneSedadla = ? and km >= ? and km <= ? and cena >= ? and cena <= ?";
+        BeanPropertyRowMapper<InzeratOsobne> mapper = BeanPropertyRowMapper.newInstance(InzeratOsobne.class);
+        return jdbcTemplate.query(sql, mapper, znacka, model, odRocnik, doRocnik, klimatizacia, tazneZariadenie, vyhrievaneSedadla, odKm , doKm, odCena, doCena);
+    }
 }

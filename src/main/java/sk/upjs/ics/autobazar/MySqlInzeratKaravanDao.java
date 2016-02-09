@@ -37,10 +37,10 @@ public class MySqlInzeratKaravanDao implements InzeratKaravanDao {
     }
 
     @Override
-    public List<InzeratKaravan> vyhladaj(String znacka, String model, String odRocnik, String doRocnik) {
-        String sql = "select * from inzeratKaravan where znacka = ? and model = ? and rocnik >= ? and rocnik <= ?";
+    public List<InzeratKaravan> vyhladajViac(String znacka, String model, String odRocnik, String doRocnik, int odKm, int doKm, long odCena, long doCena, boolean klimatizacia, boolean tazneZariadenie, boolean vyhrievaneSedadla) {
+        String sql = "select * from inzeratKaravan where znacka = ? and model = ? and rocnik >= ? and rocnik <= ? and klimatizacia = ? and tazneZariadenie = ? and vyhrievaneSedadla = ? and km >= ? and km <= ? and cena >= ? and cena <= ?";
         BeanPropertyRowMapper<InzeratKaravan> mapper = BeanPropertyRowMapper.newInstance(InzeratKaravan.class);
-        return jdbcTemplate.query(sql, mapper, znacka, model, odRocnik, doRocnik);
+        return jdbcTemplate.query(sql, mapper, znacka, model, odRocnik, doRocnik, klimatizacia, tazneZariadenie, vyhrievaneSedadla,odKm , doKm, odCena, doCena);
     }
 
     @Override
@@ -54,6 +54,13 @@ public class MySqlInzeratKaravanDao implements InzeratKaravanDao {
         String sql = "SELECT * FROM inzeratKaravan where idP = ?";
         BeanPropertyRowMapper<InzeratKaravan> mapper = BeanPropertyRowMapper.newInstance(InzeratKaravan.class);
         return jdbcTemplate.query(sql, mapper, idP);
+    }
+
+    @Override
+    public List<InzeratKaravan> vyhladaj(String znacka, String model, String odRocnik, String doRocnik) {
+        String sql = "select * from inzeratKaravan where znacka = ? and model = ? and rocnik >= ? and rocnik <= ?";
+        BeanPropertyRowMapper<InzeratKaravan> mapper = BeanPropertyRowMapper.newInstance(InzeratKaravan.class);
+        return jdbcTemplate.query(sql, mapper, znacka, model, odRocnik, doRocnik);
     }
 
 }
