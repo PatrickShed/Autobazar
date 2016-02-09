@@ -37,6 +37,48 @@ public class InzeratKaravan {
     private Long cena;
 
     private String typ;
+    
+    private boolean hmotnost;
+    
+    private byte[] obrazok;
+    
+    private boolean klimatizacia;
+    
+    private boolean tazneZariadenie;
+    
+    private boolean vyhrievaneSedadla;
+
+    public boolean isKlimatizacia() {
+        return klimatizacia;
+    }
+
+    public void setKlimatizacia(boolean klimatizacia) {
+        this.klimatizacia = klimatizacia;
+    }
+
+    public boolean isTazneZariadenie() {
+        return tazneZariadenie;
+    }
+
+    public void setTazneZariadenie(boolean tazneZariadenie) {
+        this.tazneZariadenie = tazneZariadenie;
+    }
+
+    public boolean isVyhrievaneSedadla() {
+        return vyhrievaneSedadla;
+    }
+
+    public void setVyhrievaneSedadla(boolean vyhrievaneSedadla) {
+        this.vyhrievaneSedadla = vyhrievaneSedadla;
+    }    
+
+    public byte[] getObrazok() {
+        return obrazok;
+    }    
+
+    public void setObrazok(byte[] obrazok) {
+        this.obrazok = obrazok;
+    }
 
     public String getTyp() {
         return typ;
@@ -46,7 +88,7 @@ public class InzeratKaravan {
         this.typ = typ;
     }
 
-    private boolean hmotnost;
+    
 
     public Long getIdP() {
         return idP;
@@ -150,28 +192,44 @@ public class InzeratKaravan {
     }
 
     public String toString2() {
-        if (this.isHmotnost()) {
-            return "Znacka: " + this.znacka + "\n"
-                    + "Model: " + this.model + "\n"
-                    + "Rok vyroby: " + this.rocnik + "\n"
-                    + "Objem: " + this.objem + "\n"
-                    + "Vykon: " + this.vykon + " KW\n"
-                    + "Pocet najazdenych kilometrov: " + this.km + "\n"
-                    + "Typ: " + this.getTyp() + "\n"
-                    + "Prevodovka: " + this.getPrevodovka() + "\n"
-                    + "Hmotnost: nad 3,5t";
+        String hmotnost;
+        String klimatizacia;
+        String tazneZariadenie;
+        String vyhrievaneSedadla;
+        if(this.isHmotnost()){
+            hmotnost = "nad 3,5t";
         } else {
-            return "Znacka: " + this.znacka + "\n"
-                    + "Model: " + this.model + "\n"
-                    + "Rok vyroby: " + this.rocnik + "\n"
-                    + "Objem: " + this.objem + "\n"
-                    + "Vykon: " + this.vykon + " KW\n"
-                    + "Pocet najazdenych kilometrov: " + this.km + "\n"
-                    + "Typ: " + this.getTyp() + "\n"
-                    + "Prevodovka: " + this.getPrevodovka() + "\n"
-                    + "Hmotnost: pod 3,5t";
-
+            hmotnost = "pod 3,5t";
         }
+        if(this.isKlimatizacia()){
+            klimatizacia = "ano";            
+        } else {
+            klimatizacia = "nie";
+        }
+        if(this.isTazneZariadenie()){
+            tazneZariadenie = "ano";            
+        } else {
+            tazneZariadenie = "nie";
+        }
+        if(this.isVyhrievaneSedadla()){
+            vyhrievaneSedadla = "ano";
+        } else {
+            vyhrievaneSedadla = "nie";
+        }               
+        return "Znacka: "+ this.znacka +"\n"+
+                "Model: "+ this.model +"\n"+
+                "Rok vyroby: "+ this.rocnik +"\n"+
+                "Objem: "+ this.objem+"\n"+
+                "Vykon: "+this.vykon+" KW\n"+
+                "Pocet najazdenych kilometrov: "+this.km+"\n"+
+                "Prevodovka: "+this.getPrevodovka()+"\n"+
+                "Typ: "+this.typ+"\n"+
+                "Hmotnost: " +hmotnost +"\n"+ 
+                "Klimatizacia: " +klimatizacia +"\n"+
+                "Tazne zariadenie: "+tazneZariadenie +"\n"+
+                "Vyhrievane sedadla: " +vyhrievaneSedadla;                 
+            
+
     }
 
 }

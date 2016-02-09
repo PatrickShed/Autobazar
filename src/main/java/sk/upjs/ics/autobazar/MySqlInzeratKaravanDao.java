@@ -14,18 +14,19 @@ import org.springframework.jdbc.core.JdbcTemplate;
  *
  * @author Patrik
  */
-public class MySqlInzeratKaravanDao implements InzeratKaravanDao{
+public class MySqlInzeratKaravanDao implements InzeratKaravanDao {
+
     private JdbcTemplate jdbcTemplate;
-    
+
     public MySqlInzeratKaravanDao() {
-        MysqlDataSource dataSource = InzeratFactory.INSTANCE.dataSource();        
+        MysqlDataSource dataSource = InzeratFactory.INSTANCE.dataSource();
         jdbcTemplate = InzeratFactory.INSTANCE.jdbcTemplate();
     }
 
     @Override
     public void pridat(InzeratKaravan inzerat) {
-        String sql = "INSERT INTO inzeratKaravan VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
-        jdbcTemplate.update(sql,inzerat.getIdP(),null,inzerat.getZnacka(),inzerat.getModel(),inzerat.getRocnik(),inzerat.getKm(),inzerat.getObjem(),inzerat.getPrevodovka(),inzerat.getVykon(),inzerat.getDatumPridania(), inzerat.getCena(),inzerat.getTyp(),inzerat.isHmotnost());
+        String sql = "INSERT INTO inzeratKaravan VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        jdbcTemplate.update(sql, inzerat.getIdP(), null, inzerat.getZnacka(), inzerat.getModel(), inzerat.getRocnik(), inzerat.getKm(), inzerat.getObjem(), inzerat.getPrevodovka(), inzerat.getVykon(), inzerat.getDatumPridania(), inzerat.getCena(), inzerat.getTyp(), inzerat.isHmotnost(), inzerat.getObrazok(), inzerat.isKlimatizacia(), inzerat.isTazneZariadenie(), inzerat.isVyhrievaneSedadla());
     }
 
     @Override
@@ -39,7 +40,7 @@ public class MySqlInzeratKaravanDao implements InzeratKaravanDao{
     public List<InzeratKaravan> vyhladaj(String znacka, String model, String odRocnik, String doRocnik) {
         String sql = "select * from inzeratKaravan where znacka = ? and model = ? and rocnik >= ? and rocnik <= ?";
         BeanPropertyRowMapper<InzeratKaravan> mapper = BeanPropertyRowMapper.newInstance(InzeratKaravan.class);
-        return jdbcTemplate.query(sql, mapper,znacka,model,odRocnik,doRocnik);
+        return jdbcTemplate.query(sql, mapper, znacka, model, odRocnik, doRocnik);
     }
 
     @Override
@@ -52,7 +53,7 @@ public class MySqlInzeratKaravanDao implements InzeratKaravanDao{
     public List<InzeratKaravan> dajPodlaPouzivatela(Long idP) {
         String sql = "SELECT * FROM inzeratKaravan where idP = ?";
         BeanPropertyRowMapper<InzeratKaravan> mapper = BeanPropertyRowMapper.newInstance(InzeratKaravan.class);
-        return jdbcTemplate.query(sql, mapper,idP);
+        return jdbcTemplate.query(sql, mapper, idP);
     }
-    
+
 }

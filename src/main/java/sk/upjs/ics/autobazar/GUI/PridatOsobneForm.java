@@ -67,6 +67,9 @@ public class PridatOsobneForm extends javax.swing.JDialog {
         cenaLabel = new javax.swing.JLabel();
         obrazokTextField = new javax.swing.JTextField();
         pridatObrazokButton = new javax.swing.JButton();
+        tazneZariadenieCheckBox = new javax.swing.JCheckBox();
+        vyhrievaneSedadlaCheckBox = new javax.swing.JCheckBox();
+        klimatizaciaCheckBox = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -107,12 +110,23 @@ public class PridatOsobneForm extends javax.swing.JDialog {
             }
         });
 
+        tazneZariadenieCheckBox.setText("Tazne zariadenie");
+
+        vyhrievaneSedadlaCheckBox.setText("Vyhrievane sedadla");
+
+        klimatizaciaCheckBox.setText("Klimatizacia");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jLabel3)
+                        .addGap(58, 58, 58)
+                        .addComponent(kmTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(20, 20, 20)
                         .addComponent(znackaLabel)
@@ -137,20 +151,6 @@ public class PridatOsobneForm extends javax.swing.JDialog {
                         .addGap(41, 41, 41)
                         .addComponent(rocnikTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jLabel2)
-                        .addGap(41, 41, 41)
-                        .addComponent(objemTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(56, 56, 56)
-                        .addComponent(cenaLabel)
-                        .addGap(51, 51, 51)
-                        .addComponent(cenaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jLabel3)
-                        .addGap(58, 58, 58)
-                        .addComponent(kmTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addComponent(obrazokTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
@@ -159,8 +159,22 @@ public class PridatOsobneForm extends javax.swing.JDialog {
                         .addGap(174, 174, 174)
                         .addComponent(okButton, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(spatButton, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(25, 25, 25))
+                        .addComponent(spatButton, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jLabel2)
+                        .addGap(41, 41, 41)
+                        .addComponent(objemTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(56, 56, 56)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(klimatizaciaCheckBox)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(cenaLabel)
+                                .addGap(51, 51, 51)
+                                .addComponent(cenaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(vyhrievaneSedadlaCheckBox)
+                            .addComponent(tazneZariadenieCheckBox))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -198,20 +212,26 @@ public class PridatOsobneForm extends javax.swing.JDialog {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addComponent(cenaLabel))))
-                .addGap(18, 18, 18)
+                .addGap(17, 17, 17)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addComponent(jLabel3))
-                    .addComponent(kmTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(kmTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(klimatizaciaCheckBox)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(vyhrievaneSedadlaCheckBox)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tazneZariadenieCheckBox)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                 .addComponent(obrazokTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(pridatObrazokButton)
                     .addComponent(okButton)
                     .addComponent(spatButton))
-                .addGap(17, 17, 17))
+                .addGap(20, 20, 20))
         );
 
         pack();
@@ -276,6 +296,9 @@ public class PridatOsobneForm extends javax.swing.JDialog {
         value = Long.parseLong(cenaTextField.getText());
         i.setCena(value);
         i.setDatumPridania(Date.from(Instant.now()));
+        i.setKlimatizacia(klimatizaciaCheckBox.isSelected());
+        i.setTazneZariadenie(tazneZariadenieCheckBox.isSelected());
+        i.setVyhrievaneSedadla(vyhrievaneSedadlaCheckBox.isSelected());
         i.setIdP(idP);
 
         inzeratDao.pridat(i);
@@ -344,6 +367,7 @@ public class PridatOsobneForm extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JCheckBox klimatizaciaCheckBox;
     private javax.swing.JTextField kmTextField;
     private javax.swing.JLabel modelLabel;
     private javax.swing.JTextField modelTextField;
@@ -355,6 +379,8 @@ public class PridatOsobneForm extends javax.swing.JDialog {
     private javax.swing.JButton pridatObrazokButton;
     private javax.swing.JTextField rocnikTextField;
     private javax.swing.JButton spatButton;
+    private javax.swing.JCheckBox tazneZariadenieCheckBox;
+    private javax.swing.JCheckBox vyhrievaneSedadlaCheckBox;
     private javax.swing.JLabel vykonLabel;
     private javax.swing.JTextField vykonTextField;
     private javax.swing.JLabel znackaLabel;

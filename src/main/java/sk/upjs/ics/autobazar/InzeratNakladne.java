@@ -25,7 +25,37 @@ public class InzeratNakladne {
     private Date datumPridania;
     
     private Long cena;
+    
+    private boolean klimatizacia;
+    
+    private boolean tazneZariadenie;
+    
+    private boolean vyhrievaneSedadla;
 
+    public boolean isKlimatizacia() {
+        return klimatizacia;
+    }
+
+    public void setKlimatizacia(boolean klimatizacia) {
+        this.klimatizacia = klimatizacia;
+    }
+
+    public boolean isTazneZariadenie() {
+        return tazneZariadenie;
+    }
+
+    public void setTazneZariadenie(boolean tazneZariadenie) {
+        this.tazneZariadenie = tazneZariadenie;
+    }
+
+    public boolean isVyhrievaneSedadla() {
+        return vyhrievaneSedadla;
+    }
+
+    public void setVyhrievaneSedadla(boolean vyhrievaneSedadla) {
+        this.vyhrievaneSedadla = vyhrievaneSedadla;
+    }
+        
     public Long getIdP() {
         return idP;
     }
@@ -122,14 +152,36 @@ public class InzeratNakladne {
         return this.znacka +" "+ this.model +", Rok vyroby: "+ this.rocnik +", Objem: "+ this.objem+"\n\n";
     }
     
-    public String toString2() {
+    public String toString2() {        
+        String klimatizacia;
+        String tazneZariadenie;
+        String vyhrievaneSedadla;
+        
+        if(this.isKlimatizacia()){
+            klimatizacia = "ano";            
+        } else {
+            klimatizacia = "nie";
+        }
+        if(this.isTazneZariadenie()){
+            tazneZariadenie = "ano";            
+        } else {
+            tazneZariadenie = "nie";
+        }
+        if(this.isVyhrievaneSedadla()){
+            vyhrievaneSedadla = "ano";
+        } else {
+            vyhrievaneSedadla = "nie";
+        }               
         return "Znacka: "+ this.znacka +"\n"+
                 "Model: "+ this.model +"\n"+
                 "Rok vyroby: "+ this.rocnik +"\n"+
                 "Objem: "+ this.objem+"\n"+
                 "Vykon: "+this.vykon+" KW\n"+
                 "Pocet najazdenych kilometrov: "+this.km+"\n"+
-                "Prevodovka: "+this.getPrevodovka()+"\n"+
-                "Datum pridania: "+ dateFormat.format(this.datumPridania);
+                "Prevodovka: "+this.getPrevodovka()+"\n"+                
+                "Klimatizacia: " +klimatizacia +"\n"+
+                "Tazne zariadenie: "+tazneZariadenie +"\n"+
+                "Vyhrievane sedadla: " +vyhrievaneSedadla +"\n"+
+                "Datum pridania: "+ dateFormat.format(this.datumPridania); 
     }
 }
